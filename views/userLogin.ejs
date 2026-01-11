@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBin | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'nb';
+            src: url('./font1.ttf');
+        }
+        @font-face {
+            font-family: 'rh';
+            src: url('./font2.ttf');
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'nb': ['nb', 'Arial', 'sans-serif'],
+                        'rh': ['rh', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        'smartbin-green': 'rgb(39, 142, 35)',
+                        'smartbin-dark': 'rgba(0, 0, 0, 0.572)',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-white font-nb">
+    <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted class="w-full h-full object-cover">
+                <source src="../video/page1.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-smartbin-dark"></div>
+        </div>
+        
+        <div class="w-full max-w-md z-10">
+            <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-lg shadow-xl overflow-hidden p-8">
+                <div class="flex items-center mb-6">
+                    <span class="text-lg font-rh">SmartBin</span>
+                </div>
+                <h1 class="text-4xl font-bold mb-2 font-rh">Login</h1>
+                <p class="mb-6 text-sm">
+                    New to SmartBin? <a href="/userCreate" class="text-smartbin-green hover:underline">Create an account</a>
+                </p>
+                <form action="/userLogin" method="post" class="space-y-4">
+                    <input type="email" placeholder="Email" name="email" required 
+                           class="w-full px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-md text-sm
+                           focus:outline-none focus:border-smartbin-green focus:ring-1 focus:ring-smartbin-green transition-all duration-300">
+                    <input type="password" placeholder="Password" name="password" required
+                           class="w-full px-3 py-2 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-md text-sm
+                           focus:outline-none focus:border-smartbin-green focus:ring-1 focus:ring-smartbin-green transition-all duration-300">
+                    <div class="flex justify-between items-center">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox h-4 w-4 text-smartbin-green">
+                            <span class="ml-2 text-sm">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-smartbin-green hover:underline">Forgot password?</a>
+                    </div>
+                    <button type="submit" 
+                            class="w-full px-4 py-2 bg-smartbin-green text-white rounded-md text-sm
+                                   hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-smartbin-green focus:ring-opacity-50 transition-all duration-300">
+                        Log in
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

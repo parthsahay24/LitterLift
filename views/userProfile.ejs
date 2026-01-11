@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js" integrity="sha512-nIwdJlD5/vHj23CbO2iHCXtsqzdTTx3e3uAmpTm4x2Y8xCIFyWu4cSIV8GaGe2UNVq86/1h9EgUZy7tn243qdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: 'nb';
+            src: url('./font1.ttf');
+        }
+        @font-face {
+            font-family: 'rh';
+            src: url('./font2.ttf');
+        }
+        body {
+            background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .bg-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            transition: backdrop-filter 0.5s ease;
+        }
+        .bg-overlay:hover {
+            backdrop-filter: blur(10px);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.8);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(74, 222, 128, 0.8); }
+            to { text-shadow: 0 0 20px rgba(74, 222, 128, 0.8); }
+        }
+    </style>
+
+</head>
+<body class="text-white">
+    <div class="bg-overlay min-h-screen">
+        <div x-data="{ 
+            activeTab: 'garbage',
+            currentPage: 1,
+            itemsPerPage: 5,
+            garbageRequests: <%= JSON.stringify(user.garbageRequests) %>,
+            recycleRequests: <%= JSON.stringify(user.recycleRequests) %>,
+            showProfileMenu: false,
+            get currentRequests() {
+                return this.activeTab === 'garbage' ? this.garbageRequests : this.recycleRequests;
+            },
+            get paginatedRequests() {
+                const start = (this.currentPage - 1) * this.itemsPerPage;
+                const end = start + this.itemsPerPage;
+                return this.currentRequests.slice(start, end);
+
+                // Sort the requests in descending order by date
+
+                const sortedRequests = [...this.currentRequests].sort((a, b) => new Date(b.date) - new Date(a.date));
+                return sortedRequests.slice(start, end);
+            },
+            get totalPages() {
+                return Math.ceil(this.currentRequests.length / this.itemsPerPage);
+            }
+        }" x-init="
+            setTimeout(() => {
+                gsap.to('.fade-in', { opacity: 1, y: 0, stagger: 0.2, duration: 0.5 });
+            }, 500);
+        ">
+            
+            <nav class="bg-gradient-to-r from-green-800 to-green-600 p-4 shadow-lg">
+                <div class="container mx-auto flex justify-between items-center">
+                    <div class="text-xl">
+                        <span class="bg-clip-text text-transparent font-extrabold text-[30px] bg-gradient-to-r from-green-300 to-green-100 font-[rh] text-glow">
+                            SmartBin
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button @click="showProfileMenu = !showProfileMenu" class="w-10 h-10 rounded-full overflow-hidden focus:outline-none border-2">
+                                <img class="w-full h-full object-cover" src="/images/profilePhoto/<%= user.profilePic %>" alt="Profile">
+                            </button>
+                            <div x-show="showProfileMenu" @click.away="showProfileMenu = false" class="absolute right-0 mt-2 w-48 bg-green-700 rounded-md shadow-lg border-solid py-1">
+                                <a href="/" class="block px-4 py-2 text-sm hover:bg-green-600">Home</a>
+                                <a href="" class="block px-4 py-2 text-sm hover:bg-green-600">Services</a>
+                                <a href="#" class="block px-4 py-2 text-sm hover:bg-green-600">About</a>
+                                <a href="#" class="block px-4 py-2 text-sm hover:bg-green-600">Impact</a>
+                            </div>
+                        </div>
+                        <a href="/logout" class="backdrop-blur-sm bg-white/40 hover:backdrop-blur-sm bg-red/40 transition duration-300 rounded-md px-3 py-2 inline-block">Logout</a>
+                    </div>
+                </div>
+            </nav>
+
+            
+            <div class="container mx-auto p-10">
+                <div class="flex items-start gap-3 mb-8 fade-in">
+                    <h3 class="text-3xl"><span class="font-light">Hello,</span> <span class="font-bold"><%= user.username %></span></h3>
+                </div>
+                <div class="flex space-x-4 mb-4 fade-in">
+                    <button @click="activeTab = 'garbage'; currentPage = 1" :class="{'backdrop-blur-sm bg-white/50': activeTab === 'garbage', 'backdrop-blur-sm bg-white/10': activeTab !== 'garbage'}" class="px-4 py-2 rounded-md transition duration-300">Garbage Requests</button>
+                    <button @click="activeTab = 'recycle'; currentPage = 1" :class="{'backdrop-blur-sm bg-white/50': activeTab === 'recycle', 'backdrop-blur-sm bg-white/10': activeTab !== 'recycle'}" class="px-4 py-2 rounded-md transition duration-300">Recycle Requests</button>
+                </div>
+                <h2 class="text-2xl font-bold mb-4 fade-in" x-text="activeTab === 'garbage' ? 'Your Garbage Requests' : 'Your Recycle Requests'"></h2>
+                <div class="backdrop-sepia-0 bg-white/10 rounded-md shadow-md mb-4 fade-in ">
+                    <template x-if="currentRequests.length === 0">
+                        <p class="p-4" x-text="activeTab === 'garbage' ? 'You haven\'t made any garbage requests yet.' : 'You haven\'t made any recycle requests yet.'"></p>
+                    </template>
+                    <template x-if="currentRequests.length > 0">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-green-800 bg-opacity-30 backdrop-filter backdrop-blur-lg rounded-md shadow-xl text-green-100">
+                                    <th class="px-4 py-3 text-left">Serial No.</th>
+                                    <th class="px-4 py-3 text-left">Date</th>
+                                    <th class="px-4 py-3 text-left">Description</th>
+                                    <th class="px-4 py-3 text-left">Location</th>
+                                    <th class="px-4 py-3 text-left">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="(request, index) in paginatedRequests" :key="index">
+                                    <tr class="border-b border-green-600 hover:bg-green-800 transition duration-300">
+                                        <!-- changes for index descending order by date-->
+                                        
+                                        <td class="px-4 py-3" x-text="currentRequests.length - ((currentPage - 1) * itemsPerPage + index)"></td>
+                                        <td class="px-4 py-3" x-text="formatDate(request.date)"></td>
+                                        <td class="px-4 py-3" x-text="request.description"></td>
+                                        <td class="px-4 py-3" x-text="request.location"></td>
+                                        <td class="px-4 py-3" x-text="request.status"></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+                </div>
+                <div class="flex justify-between items-center mt-4 fade-in" x-show="totalPages > 1">
+                    <button @click="currentPage--" :disabled="currentPage === 1" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed transition duration-300">Previous</button>
+                    <span>Page <span x-text="currentPage"></span> of <span x-text="totalPages"></span></span>
+                    <button @click="currentPage++" :disabled="currentPage === totalPages" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed transition duration-300">Next</button>
+                </div>
+                <a href="/garbageImage" x-show="activeTab === 'garbage'" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 inline-block transition duration-300 fade-in">
+                    Report New Garbage
+                </a>
+                <a href="/recycleImage" x-show="activeTab === 'recycle'" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 inline-block transition duration-300 fade-in">
+                    Report New Items to be Recycled
+                </a>
+            </div>
+        </div>    
+    </div>
+    <script>
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() returns 0-11
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
+
