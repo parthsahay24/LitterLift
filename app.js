@@ -3,6 +3,14 @@ require('dotenv').config();
 
 const express= require("express");
 const app=express();
+
+const cors = require('cors');
+// Allow frontend to talk to backend
+app.use(cors({
+    origin: '*', // Allow all origins for now (we'll make it secure later)
+    credentials: true
+}));
+
 const path=require("path");
 const fs = require('fs');
 const nodemailer = require('nodemailer');
@@ -64,12 +72,12 @@ app.get("/", function(req, res) {
 
 // Garbage upload page - requires login
 app.get('/garbageImage', isLoggedInAsUser, (req, res) => {
-    res.render('uploadG');
+    res.render('UploadG');
 });
 
 // Recycle upload page - requires login
 app.get('/recycleImage', isLoggedInAsUser, (req, res) => {
-    res.render('uploadR');
+    res.render('UploadR');
 });
 
 
@@ -553,9 +561,14 @@ function isLoggedInAsAdmin(req, res, next) {
     }
 }
 
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, function() {
-    console.log(`✓ Server running on http://localhost:${PORT}`);
+// app.listen(PORT, function() {
+//     console.log(`✓ Server running on http://localhost:${PORT}`);
+// });
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });
 
 // Export for Vercel
