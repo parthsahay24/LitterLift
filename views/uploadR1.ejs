@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recycle Upload</title>
+    <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+     <div class="w-full h-screen bg-zinc-900 text-white p-10 flex justify-center items-center">
+        <div class="card bg-zinc-800 rounded-md p-8 w-full max-w-md">
+            <h3 class="text-blue-400 text-lg">Upload Recycle Image</h3>
+            <br>
+            <form id="recycleUploadForm" action="/uploadRecycleImg" method="POST" enctype="multipart/form-data">
+                <input type="file" id="recycleImage"  accept="image/*" required>
+                <br><br>
+                <button id="selectButton" class="select-image px-5 py-2 rounded-md bg-blue-800 " type="submit">Report to Recycle Center</button>
+            </form>
+        </div>
+     </div>
+     <script src="/javascripts/recycleIndex.js"></script>
+</body>
+</html>

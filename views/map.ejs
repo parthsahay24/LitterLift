@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Nearest Recycling Center</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="../stylesheets/styleMap.css">
+</head>
+<body>
+    <div id="app-container">
+        <div id="sidebar">
+            <div id="logo">Recycling Centers</div>
+            <div id="search-container">
+                <input type="text" id="search-input" placeholder="Enter radius in km...">
+                <button id="search-button">Search</button>
+            </div>
+            <div id="results-list"></div>
+        </div>
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="../javascripts/scriptMap.js"></script>
+</body>
+</html>

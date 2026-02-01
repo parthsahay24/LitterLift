@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garbage Upload</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4ff;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -3;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black transparent overlay */
+            z-index: -2;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .parallax-dot {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.6); /* Transparent */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 400px;
+            max-width: 90%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            backdrop-filter: blur(10px); /* Adds a blur effect */
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: rotateX(5deg) rotateY(5deg);
+        }
+
+        h2, h3 {
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px; /* Rounded corners */
+            font-size: 16px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: border-color 0.3s, box-shadow 0.3s; /* Transition effect */
+        }
+
+        input[type="text"]:focus, input[type="file"]:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on focus */
+        }
+
+        input[type="text"]::placeholder {
+            color: #888;
+            opacity: 1; /* Ensure placeholder is fully visible */
+        }
+
+        
+
+        .file-types {
+            font-size: 12px;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .secure {
+            display: flex;
+            align-items: center;
+        }
+
+        .secure::before {
+            content: '🔒';
+            margin-right: 5px;
+        }
+
+        .upload-btn, .select-image {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upload-btn:hover, .select-image:hover {
+            background-color: #3a7bd5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video class="video-background" autoplay muted loop>
+            <source src="https://videos.pexels.com/video-files/3196599/3196599-uhd_2560_1440_25fps.mp4" type="video/mp4">
+        </video>
+
+        <div class="overlay"></div> <!-- Black transparent overlay -->
+
+        <div class="parallax-bg" id="parallax-bg"></div>
+
+        <div class="card">
+            <h2>Upload Garbage Image</h2>
+                        <form id="garbageUploadForm" action="/uploadGarbageImg" method="POST" enctype="multipart/form-data">
+                <input type="file" id="garbageImage" accept="image/*" required>
+                <input type="text" id="garbageAddress" name='manualAddress' placeholder="Enter Address" required>
+
+                <br><br>
+                <div class="file-types">
+                    <span>Accepted File Types: .jpg, .png, and images</span>
+                    <span class="secure">Secure</span>
+                </div>
+                <button id="selectButton" class="select-image" type="submit">Report to Garbage</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const parallaxBg = document.getElementById('parallax-bg');
+        const card = document.querySelector('.card');
+
+        for (let i = 0; i < 50; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('parallax-dot');
+            dot.style.width = `${Math.random() * 10 + 5}px`;
+            dot.style.height = dot.style.width;
+            dot.style.left = `${Math.random() * 100}%`;
+            dot.style.top = `${Math.random() * 100}%`;
+            parallaxBg.appendChild(dot);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+
+            parallaxBg.style.transform = `translateX(${-xAxis}px) translateY(${-yAxis}px)`;
+        });
+
+        
+    </script>
+    <script src="/javascripts/garbageIndex.js"></script>
+</body>
+</html>

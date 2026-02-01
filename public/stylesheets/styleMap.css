@@ -1,0 +1,90 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+}
+
+#app-container {
+    display: flex;
+    height: 100%;
+}
+
+#sidebar {
+    width: 267px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: rgba(236, 237, 234, 0.313);
+    backdrop-filter: blur(4px);
+    
+}
+
+#logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #56ac24ce;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+}
+
+#search-container {
+    margin-bottom: 20px;
+}
+
+#search-input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#search-button {
+    margin-top: 10px;
+    width: 25%;
+    padding: 10px;
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#results-list {
+    overflow-y: auto;
+}
+
+
+.result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.result-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.result-info h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.result-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+#map-container {
+    flex-grow: 1;
+}
+
+#map {
+    height: 100%;
+}

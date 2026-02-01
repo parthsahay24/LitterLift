@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-full min-h-screen bg-zinc-900 text-white p-10">
+        <div class="w-full flex justify-end">
+            <a class="bg-red-500 rounded-md px-3 py-2 inline-block" href="/logout">Logout</a>
+        </div>
+        <div class="flex items-start gap-3 ">
+            <div class="w-10 h-10 rounded-md overflow-hidden">
+                <img class="w-full h-full object-cover" src="/images/profilePhoto/<%= user.profilePic  %>" alt="">
+            </div>
+            <h3 class="text-3xl mb-4"><span class="font-light">Hello,</span> <%= user.username %></h3>
+        </div>
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Your Garbage Requests</h2>
+            <div class="bg-zinc-800 rounded-md shadow-md mb-4">
+                <% let sl = 1 %>
+                <% if (user.garbageRequests.length === 0) { %>
+                    <p>You haven't made any garbage requests yet.</p>
+                <% } else { %>
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-zinc-700 text-gray-400">
+                            <th class="px-4 py-3 text-left">Serial No.</th>
+                            <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3 text-left">Description</th>
+                            <th class="px-4 py-3 text-left">Location</th>
+                            <th class="px-4 py-3 text-left">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% user.garbageRequests.forEach(request => { %>    
+                        <tr class="border-b border-zinc-700">
+                            <td class="px-4 py-3"><%= sl++ %></td>
+                            <td class="px-4 py-3"><%= request.date.toLocaleDateString() %></td>
+                            <td class="px-4 py-3"><%= request.description %></td>
+                            <td class="px-4 py-3"><%= request.location %></td>
+                            <td class="px-4 py-3"><%= request.status %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <% } %>
+            </div>
+            <a href="/garbageImage" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Report New Garbage
+            </a>
+
+            <h2 class="text-2xl font-bold mb-4 mt-[100px]">Your Recycle Requests</h2>
+            <div class="bg-zinc-800 rounded-md shadow-md mb-4">
+                <% let sln = 1 %>
+                <% if (user.recycleRequests.length === 0) { %>
+                    <p>You haven't made any recycle requests yet.</p>
+                <% } else { %>
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-zinc-700 text-gray-400">
+                            <th class="px-4 py-3 text-left">Serial No.</th>
+                            <th class="px-4 py-3 text-left">Date</th>
+                            <th class="px-4 py-3 text-left">Description</th>
+                            <th class="px-4 py-3 text-left">Location</th>
+                            <th class="px-4 py-3 text-left">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% user.recycleRequests.forEach(request => { %>    
+                        <tr class="border-b border-zinc-700">
+                            <td class="px-4 py-3"><%= sln++ %></td>
+                            <td class="px-4 py-3"><%= request.date.toLocaleDateString() %></td>
+                            <td class="px-4 py-3"><%= request.description %></td>
+                            <td class="px-4 py-3"><%= request.location %></td>
+                            <td class="px-4 py-3"><%= request.status %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <% } %>
+            </div>
+            <a href="/recycleImage" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Report New Items to be Recycled
+            </a>
+        </div>
+    </div>    
+</body>
+</html>
