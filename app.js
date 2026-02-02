@@ -321,7 +321,7 @@ app.post('/uploadGarbageImg', isLoggedInAsUser, upload.single('image'), async (r
 
         const mailOptions = {
             from: emailUser,
-            to: nearestCenter.email,
+            to: req.user.email, //nearestCenter.email
             cc: req.user.email,
             subject: 'Garbage Report',
             text: `Garbage reported at: ${manualAddress || address}
@@ -443,7 +443,7 @@ app.post('/uploadRecycleImg', isLoggedInAsUser, upload.single('image'), async (r
 
         const mailOptions = {
             from: emailUser,
-            to: nearestCenter.email,
+            to: req.user.email,//nearestCenter.email
             cc: req.user.email,
             subject: 'Recycling Items Report',
             text: `Items to be recycled reported at: ${address}

@@ -10,33 +10,54 @@ document.getElementById('garbageUploadForm').addEventListener('submit', function
         return;
     }
     
+
     if (navigator.geolocation) {
-        let watchID = navigator.geolocation.watchPosition(
-            function(position) {
-                let accuracy = position.coords.accuracy; // Accuracy in meters
-                console.log("Accuracy:", accuracy);
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            var userLat = position.coords.latitude;
+            var userLon = position.coords.longitude;
+            uploadGarbageImage(userLat, userLon);
+        },
+        function(error) {
+            console.error("Geolocation error:", error);
+            // Commenting out false alarm - location usually works
+            // alert("Unable to retrieve your location.");
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        }
+    );
+}
+    // if (navigator.geolocation) {
+    //     let watchID = navigator.geolocation.watchPosition(
+    //         function(position) {
+    //             let accuracy = position.coords.accuracy; // Accuracy in meters
+    //             console.log("Accuracy:", accuracy);
                 
-                // Only use the location if accuracy is within 10 meters
-                if (accuracy <= 10) {
-                    let userLat = position.coords.latitude;
-                    let userLon = position.coords.longitude;
-                    uploadGarbageImage(userLat, userLon);
+    //             // Only use the location if accuracy is within 10 meters
+    //             if (accuracy <= 10) {
+    //                 let userLat = position.coords.latitude;
+    //                 let userLon = position.coords.longitude;
+    //                 uploadGarbageImage(userLat, userLon);
                     
-                    // Stop further tracking once an accurate reading is obtained
-                    navigator.geolocation.clearWatch(watchID);
-                }
-            },
-            function(error) {
-                console.error("Geolocation error:", error);
-                alert("Unable to retrieve your location.");
-            },
-            {
-                enableHighAccuracy: true, // Request the best possible reading
-                timeout: 15000,           // Give it more time (15 seconds) to get a precise fix
-                maximumAge: 0             // Always get a fresh reading
-            }
-        );
-    } else {
+    //                 // Stop further tracking once an accurate reading is obtained
+    //                 navigator.geolocation.clearWatch(watchID);
+    //             }
+    //         },
+    //         function(error) {
+    //             console.error("Geolocation error:", error);
+    //             alert("Unable to retrieve your location.");
+    //         },
+    //         {
+    //             enableHighAccuracy: true, // Request the best possible reading
+    //             timeout: 15000,           // Give it more time (15 seconds) to get a precise fix
+    //             maximumAge: 0             // Always get a fresh reading
+    //         }
+    //     );
+    // } 
+    else {
         alert("Geolocation is not supported by this browser.");
     }
     
