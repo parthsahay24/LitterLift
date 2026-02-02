@@ -6,13 +6,13 @@ const { OPENCAGE_API_KEY: opencageApiKey } = process.env;
 
 // Example data for garbage centers
 const garbageCenters = [
-    { lat: 20.4625, lng: 85.8828, name: "CDA Garbage Center", email: "dwivediaakash2000@gmail.com" },
-    { lat: 20.4620, lng: 85.8780, name: "Barabati Garbage Center", email: "dwivediaakash2000@gmail.com" },
-    { lat: 20.4543, lng: 85.8822, name: "Cuttack Railway Station Garbage Center", email: "dwivediaakash2000@gmail.com" },
-    { lat: 20.4627, lng: 85.8344, name: "Orissa High Court Garbage Center", email: "dwivediaakash2000@gmail.com" },
-    { lat: 20.4630, lng: 85.8835, name: "Cuttack Medical College Garbage Center", email: "dwivediaakash2000@gmail.com" },
-    { lat: 20.4540, lng: 85.8020, name: "Mahanadi Barrage Garbage Center", email: "dwivediaakash2000@gmail.com" },
-    { lat: 20.4600, lng: 85.8720, name: "Netaji Birth Place Museum Garbage Center", email: "dwivediaakash2000@gmail.com" },
+    { lat: 20.4625, lng: 85.8828, name: "CDA Garbage Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4620, lng: 85.8780, name: "Barabati Garbage Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4543, lng: 85.8822, name: "Cuttack Railway Station Garbage Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4627, lng: 85.8344, name: "Orissa High Court Garbage Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4630, lng: 85.8835, name: "Cuttack Medical College Garbage Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4540, lng: 85.8020, name: "Mahanadi Barrage Garbage Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4600, lng: 85.8720, name: "Netaji Birth Place Museum Garbage Center", email: "parthsahay24@gmail.com" },
 ];
 
 // Function to get address from coordinates

@@ -30,13 +30,13 @@ document.getElementById('recycleUploadForm').addEventListener('submit', function
 
 // List of recycling centers
 var recyclingCenters = [
-    { lat: 20.4625, lng: 85.8828, name: "CDA recycle Center", email: "putkutripathy2004@gmail.com" },
-    { lat: 20.4620, lng: 85.8780, name: "Barabati recycle Center", email: "putkutripathy2004@gmail.com" },
-    { lat: 20.4543, lng: 85.8822, name: "Cuttack Railway Station recycle Center", email: "putkutripathy2004@gmail.com" },
-    { lat: 20.4627, lng: 85.8344, name: "Orissa High Court recycle Center", email: "putkutripathy2004@gmail.com" },
-    { lat: 20.4630, lng: 85.8835, name: "Cuttack Medical College recycle Center", email: "putkutripathy2004@gmail.com" },
-    { lat: 20.4540, lng: 85.8020, name: "Mahanadi Barrage recycle Center", email: "putkutripathy2004@gmail.com" },
-    { lat: 20.4600, lng: 85.8720, name: "Netaji Birth Place Museum recycle Center", email: "putkutripathy2004@gmail.com" }
+    { lat: 20.4625, lng: 85.8828, name: "CDA recycle Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4620, lng: 85.8780, name: "Barabati recycle Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4543, lng: 85.8822, name: "Cuttack Railway Station recycle Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4627, lng: 85.8344, name: "Orissa High Court recycle Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4630, lng: 85.8835, name: "Cuttack Medical College recycle Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4540, lng: 85.8020, name: "Mahanadi Barrage recycle Center", email: "parthsahay24@gmail.com" },
+    { lat: 20.4600, lng: 85.8720, name: "Netaji Birth Place Museum recycle Center", email: "parthsahay24@gmail.com" }
 ];
 
 // Function to calculate the distance between two geographical points

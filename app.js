@@ -304,10 +304,17 @@ app.post('/uploadGarbageImg', isLoggedInAsUser, upload.single('image'), async (r
         await user.save();
 
         // Send email
+        // const transporter = nodemailer.createTransport({
+        //     host: "smtp.gmail.com",
+        //     port: 587,
+        //     secure: false,
+        //     auth: { user: emailUser, pass: emailPass },
+        //     tls: { rejectUnauthorized: false }
+        // });
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 587,
-            secure: false,
+            port: process.env.EMAIL_PORT || 465,
+            secure: process.env.EMAIL_SECURE === 'true',
             auth: { user: emailUser, pass: emailPass },
             tls: { rejectUnauthorized: false }
         });
@@ -419,10 +426,17 @@ app.post('/uploadRecycleImg', isLoggedInAsUser, upload.single('image'), async (r
         await user.save();
 
         // Send email
+        // const transporter = nodemailer.createTransport({
+        //     host: "smtp.gmail.com",
+        //     port: 587,
+        //     secure: false,
+        //     auth: { user: emailUser, pass: emailPass },
+        //     tls: { rejectUnauthorized: false }
+        // });
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 587,
-            secure: false,
+            port: process.env.EMAIL_PORT || 465,
+            secure: process.env.EMAIL_SECURE === 'true',
             auth: { user: emailUser, pass: emailPass },
             tls: { rejectUnauthorized: false }
         });
