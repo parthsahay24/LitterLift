@@ -1,4 +1,4 @@
-# Smart Bin Complete - Waste Management System
+# LitterLift - A Smart Waste Management System
 
 A comprehensive waste management system that enables users to report garbage and request recycling services with location tracking, automated notifications, and admin management capabilities.
 
