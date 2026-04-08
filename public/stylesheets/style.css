@@ -249,28 +249,43 @@ nav h3 {
 .card__article {
   position: relative;
   overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* The requested gap */
+  margin-bottom: 2rem;
 }
 
 .card__img {
-  width: 50vw;
+  width: 100%;
+  aspect-ratio: 10/7; /* Standardized aspect ratio for alignment */
   border-radius: 1.5rem;
   object-fit: cover;
+  display: block;
+}
+
+/* Remove the unused container class */
+.card__img-container {
+  display: contents;
 }
 
 .card__data {
-  width: 90%;
-  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%; /* Take full width of parent-constrained space */
+  min-height: 160px;
+  background-color: rgba(0, 0, 0, 0.82);
   padding: 1.5rem;
-  box-shadow: 0 8px 24px hsla(0, 0%, 0%, 0.15);
-  border-radius: 1rem;
-  position: absolute;
-  bottom: -2rem;
-  left: 5%;
-  right: 5%;
-  margin-inline: auto;
-  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.3);
+  border-radius: 1.5rem;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
 }
 
 .card__description {
@@ -288,9 +303,17 @@ nav h3 {
 
 .card__button {
   text-decoration: none;
-  font-size: var(--small-font-size);
+  font-size: 14px;
   font-weight: 500;
-  color: var(--first-color);
+  color: white;
+  background-color: #28a745;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  min-height: 44px; /* Ensure same height for buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card__button:hover {
